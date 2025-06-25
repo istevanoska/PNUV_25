@@ -1,37 +1,1255 @@
 <!DOCTYPE html>
 <html lang="mk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Ментално здравје</title>
-    <link rel="stylesheet" href="styles.css"> 
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+
+        :root {
+            --purple-pastel: #9f7aea;
+            --pink-pastel: #ec4899;
+            --blue-pastel: #3b82f6;
+            --teal-pastel: #2dd4bf;
+            --bg-light: #f9f5ff;
+            --text-light: #fff;
+            --text-dark: #1e1b3a;
+            --bg-dark: #0f0a31;
+            --accent-light: #a78bfa;
+            --accent-dark: #7c3aed;
+            --btn-bg-light: linear-gradient(135deg, var(--pink-pastel), var(--purple-pastel));
+            --btn-bg-dark: linear-gradient(135deg, var(--accent-dark), var(--pink-pastel));
+            --glass-light: rgba(255, 255, 255, 0.25);
+            --glass-dark: rgba(15, 10, 49, 0.4);
+            --section-bg-light: rgba(255, 255, 255, 0.85);
+            --section-bg-dark: rgba(30, 27, 58, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        body.dark {
+            background: var(--bg-dark);
+            color: var(--text-light);
+        }
+
+        /* NAVBAR - Modern Glass Effect */
+        nav {
+            background: linear-gradient(
+                    135deg,
+                    rgba(159, 122, 234, 0.85),
+                    rgba(236, 72, 153, 0.85)
+            );
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 1.2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-light);
+            transition: all 0.6s ease;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
+            border-radius: 0 0 2rem 2rem;
+            border: 1px solid var(--glass-light);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            margin: 0 2rem;
+            max-width: calc(100% - 4rem);
+        }
+
+        body.dark nav {
+            background: linear-gradient(
+                    135deg,
+                    rgba(124, 58, 237, 0.85),
+                    rgba(236, 72, 153, 0.85)
+            );
+            border: 1px solid var(--glass-dark);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+            /*margin-bottom: -10px;*/
+        }
+
+
+        nav a {
+            color: inherit;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            left: 0;
+            bottom: 0;
+            background: var(--text-light);
+            transition: width 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+            border-radius: 3px;
+        }
+
+        nav a:hover,
+        nav a:focus {
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        nav a:hover::after,
+        nav a:focus::after {
+            width: 100%;
+        }
+
+        #mode-toggle {
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid var(--text-light);
+            border-radius: 50px;
+            color: var(--text-light);
+            cursor: pointer;
+            padding: 0.6rem 1.5rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            backdrop-filter: blur(5px);
+        }
+
+        #mode-toggle:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(1.05);
+        }
+
+        body.dark #mode-toggle:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        /* Hero Section with Parallax Effect */
+        .hero {
+            position: relative;
+            height: 90vh;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--text-light);
+            overflow: hidden;
+            margin-bottom: 5rem;
+            margin-top: -100px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            /*background: linear-gradient(*/
+            /*        135deg,*/
+            /*        rgba(159, 122, 234, 0.85),*/
+            /*        rgba(236, 72, 153, 0.85)*/
+            /*);*/
+            z-index: -1;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+            /*opacity: 0.4;*/
+            margin-top: -10px;
+        }
+
+        body.dark .hero::before {
+            background: linear-gradient(
+                    135deg,
+                    rgba(124, 58, 237, 0.85),
+                    rgba(236, 72, 153, 0.85)
+            );
+        }
+
+        .hero-content {
+            max-width: 900px;
+            padding: 0 2rem;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeInUp 1s cubic-bezier(0.22, 0.61, 0.36, 1) 0.3s forwards;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        /* Main Content Sections */
+        main {
+            flex-grow: 1;
+            max-width: 1200px;
+            margin: 0 auto 6rem;
+            padding: 0 2rem;
+            position: relative;
+        }
+
+        .section {
+            background: var(--section-bg-light);
+            padding: 4rem;
+            border-radius: 2rem;
+            margin-bottom: 4rem;
+            box-shadow: 0 25px 50px -12px rgba(159, 122, 234, 0.15);
+            color: var(--text-dark);
+            transition: all 0.6s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(
+                    45deg,
+                    var(--pink-pastel),
+                    var(--purple-pastel)
+            );
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.15;
+        }
+
+        body.dark .section {
+            background: var(--section-bg-dark);
+            color: var(--text-light);
+            box-shadow: 0 25px 50px -12px rgba(124, 58, 237, 0.2);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+        }
+
+        .section h2 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--purple-pastel);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--pink-pastel);
+            border-radius: 2px;
+        }
+
+        body.dark .section h2 {
+            color: var(--accent-light);
+        }
+
+        body.dark .section h2::after {
+            background: var(--pink-pastel);
+        }
+
+        .section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.8rem;
+            font-weight: 400;
+        }
+
+        /* Survey Section */
+        .survey-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .survey-card {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 20px rgba(159, 122, 234, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            text-align: center;
+        }
+
+        body.dark .survey-card {
+            background: rgba(30, 27, 58, 0.7);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+        }
+
+        .survey-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(159, 122, 234, 0.2);
+        }
+
+        .survey-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--purple-pastel);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+        }
+
+        body.dark .survey-card h3 {
+            color: var(--accent-light);
+        }
+
+        .survey-card p {
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .survey-btn {
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            background: var(--btn-bg-light);
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(236, 72, 153, 0.3);
+            transition: all 0.4s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .survey-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(236, 72, 153, 0.4);
+        }
+
+        body.dark .survey-btn {
+            background: var(--btn-bg-dark);
+        }
+
+        /* Mood Tracker Section */
+        .mood-tracker {
+            background: linear-gradient(
+                    135deg,
+                    rgba(59, 130, 246, 0.7),
+                    rgba(236, 72, 153, 0.7)
+            );
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 3rem;
+            border-radius: 2rem;
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3);
+            color: var(--text-light);
+            text-align: center;
+            margin-top: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        body.dark .mood-tracker {
+            background: linear-gradient(
+                    135deg,
+                    rgba(124, 58, 237, 0.7),
+                    rgba(236, 72, 153, 0.7)
+            );
+            box-shadow: 0 20px 40px rgba(124, 58, 237, 0.4);
+        }
+
+        .mood-options {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            font-size: 3.5rem;
+            cursor: pointer;
+            user-select: none;
+            margin: 2rem 0;
+        }
+
+        .mood-options button {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            padding: 0;
+            color: inherit;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            box-shadow:
+                    0 4px 8px rgba(0, 0, 0, 0.1),
+                    inset 0 2px 4px rgba(255, 255, 255, 0.1);
+        }
+
+        .mood-options button:hover,
+        .mood-options button:focus {
+            transform: scale(1.2) translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow:
+                    0 6px 12px rgba(0, 0, 0, 0.2),
+                    inset 0 2px 4px rgba(255, 255, 255, 0.2);
+            outline: none;
+        }
+
+        .mood-options button.selected {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.3) translateY(-8px);
+            box-shadow:
+                    0 8px 16px rgba(0, 0, 0, 0.3),
+                    inset 0 2px 4px rgba(255, 255, 255, 0.3);
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
+        }
+
+        .mood-message {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            margin-top: 2rem;
+            font-size: 1.2rem;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            box-shadow:
+                    inset 0 1px 2px rgba(255, 255, 255, 0.1),
+                    0 4px 8px rgba(0, 0, 0, 0.1);
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mood-message span {
+            font-size: 1.6rem;
+            margin-right: 0.8rem;
+        }
+
+        /* Health Tips Section */
+        .health-tips {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .tip-card {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 20px rgba(159, 122, 234, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+
+        body.dark .tip-card {
+            background: rgba(30, 27, 58, 0.7);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+        }
+
+        .tip-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(159, 122, 234, 0.2);
+        }
+
+        .tip-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--purple-pastel);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        body.dark .tip-card h3 {
+            color: var(--accent-light);
+        }
+
+        .tip-card h3 i {
+            font-size: 1.8rem;
+        }
+
+        .tip-card p {
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        /* Mood Chart */
+        .mood-chart-container {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 10px 20px rgba(159, 122, 234, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+
+        body.dark .mood-chart-container {
+            background: rgba(30, 27, 58, 0.7);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+        }
+
+        .mood-chart-container h3 {
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            color: var(--purple-pastel);
+            text-align: center;
+        }
+
+        body.dark .mood-chart-container h3 {
+            color: var(--accent-light);
+        }
+
+        /* Buttons */
+        .btn-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 3rem;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            transition: all 0.4s ease;
+        }
+
+        .btn-primary {
+            background: var(--btn-bg-light);
+            color: white;
+            box-shadow: 0 10px 20px rgba(236, 72, 153, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(236, 72, 153, 0.4);
+        }
+
+        body.dark .btn-primary {
+            background: var(--btn-bg-dark);
+        }
+
+        .btn-secondary {
+            background: rgba(159, 122, 234, 0.1);
+            color: var(--purple-pastel);
+            border: 2px solid var(--purple-pastel);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(159, 122, 234, 0.2);
+            transform: translateY(-5px);
+            color: var(--purple-pastel);
+        }
+
+        body.dark .btn-secondary {
+            color: var(--accent-light);
+            border-color: var(--accent-light);
+            background: rgba(124, 58, 237, 0.1);
+        }
+
+        body.dark .btn-secondary:hover {
+            background: rgba(124, 58, 237, 0.2);
+        }
+
+        .btn i {
+            margin-right: 0.8rem;
+            font-size: 1.2rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 4rem 2rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            border-top: 1px solid rgba(221, 221, 221, 0.3);
+            background: var(--bg-light);
+            transition: all 0.6s ease;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--pink-pastel), var(--purple-pastel));
+        }
+
+        body.dark footer {
+            background: #111827;
+            color: var(--text-light);
+            border-color: rgba(75, 65, 107, 0.3);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .footer-links a {
+            color: var(--purple-pastel);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: var(--pink-pastel);
+            transition: width 0.3s ease;
+        }
+
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+
+        body.dark .footer-links a {
+            color: var(--accent-light);
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2.5rem 0;
+        }
+
+        .footer-social a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(159, 122, 234, 0.1);
+            color: var(--purple-pastel);
+            transition: all 0.3s ease;
+            font-size: 1.3rem;
+        }
+
+        body.dark .footer-social a {
+            background: rgba(124, 58, 237, 0.1);
+            color: var(--accent-light);
+        }
+
+        .footer-social a:hover {
+            background: var(--purple-pastel);
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        body.dark .footer-social a:hover {
+            background: var(--accent-light);
+        }
+
+        .copyright {
+            margin-top: 2rem;
+            font-size: 0.95rem;
+            opacity: 0.8;
+        }
+
+        .disclaimer {
+            max-width: 700px;
+            margin: 1.5rem auto 0;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 1024px) {
+            nav {
+                padding: 1rem 2rem;
+                margin: 0 1rem;
+                max-width: calc(100% - 2rem);
+            }
+
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+
+            .section {
+                padding: 3rem;
+            }
+
+            .survey-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+                border-radius: 0 0 1.5rem 1.5rem;
+                margin: 0;
+                max-width: 100%;
+            }
+
+            nav ul {
+                gap: 1.5rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero {
+                height: auto;
+                min-height: auto;
+                padding: 8rem 0;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section {
+                padding: 2.5rem 1.5rem;
+            }
+
+            .health-tips {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-container {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .section h2 {
+                font-size: 2rem;
+            }
+
+            .mood-options button {
+                width: 60px;
+                height: 60px;
+                font-size: 2.5rem;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-<!-- Навигација -->
+
 <nav>
     <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About Us</a></li>
+        <li><a href="index.html">Почетна</a></li>
+        <li><a href="about.html">За Нас</a></li>
+        <li><a href="the_team.html">Нашиот тим</a></li>
+        <li><a href="resources.html">Ресурси</a></li>
+<!--        <li><a href="contact.html">Контакт</a></li>-->
     </ul>
+    <button id="mode-toggle" aria-label="Toggle dark/light mode">
+        <span id="mode-icon">🌙</span>
+        <span>Темна / Светла</span>
+    </button>
 </nav>
+<!--https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80-->
+<div class="hero">
+    <img src="background.png" alt="Background" class="hero-bg">
+    <div class="hero-content">
+        <h1>Знаеш ли како се чувствуваш навистина?</h1>
+        <p>Дознај повеќе за твоето ментално здравје и добиј персонализирани совети.</p>
+        <div class="btn-container">
+            <a href="https://form.typeform.com/to/GfOY2Myt" class="btn btn-primary">
+                <i class="fas fa-clipboard-list"></i> Пополни ја анкетата
+            </a>
+            <a href="#mood-tracker" class="btn btn-secondary" style="color: white">
+                <i class="fas fa-smile"></i> Провери го твоето расположение
+            </a>
+        </div>
+    </div>
+</div>
 
+<main>
+    <section id="survey" class="section">
+        <h2>Пополни ја нашата анкета</h2>
+        <p>Нашата анкета е дизајнирана да ти помогне да го разбереш твоето ментално здравје и да добиеш персонализирани препораки за подобрување на твојата благосостојба.</p>
 
-<header>
-    <h1>Знаеш ли како се чувствуваш навистина?</h1>
-    <p>Дознај повеќе за твоето ментално здравје и добиј персонализирани совети.</p>
-</header>
+        <div class="survey-container">
+            <div class="survey-card">
+                <h3><i class="fas fa-user-graduate"></i> За ученици</h3>
+                <p>Анкета специјално дизајнирана за учениците да ги искажат своите чувства и искуства.</p>
+                <button class="survey-btn">
+                    <a href="https://form.typeform.com/to/GfOY2Myt" target="_blank" style="text-decoration: none; color: white">
+                        <i class="fas fa-play"></i> Започни
+                    </a>
+                </button>
+            </div>
+            <div class="survey-card">
+                <h3><i class="fas fa-user-tie"></i> За возрасни</h3>
+                <p>Анкета за родители и наставници за да ги разберат менталните потреби на младите.</p>
+                <button class="survey-btn">
+                    <i class="fas fa-play"></i> Започни
+                </button>
+            </div>
+        </div>
+    </section>
 
+    <section id="mood-tracker" class="section">
+        <h2>Твојот ментален дневник</h2>
+        <p>Следи го твоето расположение и добивај персонализирани совети врз основа на твојата сегашна состојба.</p>
 
-<section>
-    <h2>Пополни ја нашата анкета!</h2>
-    <p>Со оваа анкета можеш да дознаеш како да го подобриш твоето ментално здравје.</p>
-    <a href="https://form.typeform.com/to/GfOY2Myt" target="_blank">
-        <button>Почни со анкета</button>
-    </a>
-</section>
+        <div class="mood-tracker">
+            <h3>Како се чувствуваш денес?</h3>
+            <div class="mood-options" role="list" aria-label="Избери расположение">
+                <button aria-label="Среќен" title="Среќен" data-mood="happy" aria-pressed="false">😊</button>
+                <button aria-label="Нормален" title="Нормален" data-mood="neutral" aria-pressed="false">😐</button>
+                <button aria-label="Тажен" title="Тажен" data-mood="sad" aria-pressed="false">😢</button>
+                <button aria-label="Лут" title="Лут" data-mood="angry" aria-pressed="false">😡</button>
+                <button aria-label="Вљубен" title="Вљубен" data-mood="love" aria-pressed="false">😍</button>
+            </div>
+            <div class="mood-message" id="personalized-message" aria-live="polite" aria-atomic="true">
+                Избери твојата мода за денес за да добиеш совет.
+            </div>
+
+<!--            <div class="mood-chart-container">-->
+<!--                <h3>Твојата мода оваа недела</h3>-->
+<!--                <canvas id="moodChart" height="250"></canvas>-->
+<!--                <p style="color: var(&#45;&#45;text-light); opacity: 0.8; font-size: 0.9rem; margin-top: 1rem;">-->
+<!--                    * Ова е демо графикон. Во иднина ќе ги прикажува твоите внесени моди.-->
+<!--                </p>-->
+<!--            </div>-->
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>Здрави навики за ментално благосостојба</h2>
+        <p>Еве неколку совети кои можат да ти помогнат да го подобриш твоето ментално здравје и вкупното благосостојба.</p>
+
+        <div class="health-tips">
+            <div class="tip-card">
+                <h3><i class="fas fa-users"></i> Добро социјализирање</h3>
+                <p>Помини време со луѓе што те прават среќен/на. Здравата социјална мрежа е клучна за менталното здравје.</p>
+            </div>
+            <div class="tip-card">
+                <h3><i class="fas fa-running"></i> Физичка активност</h3>
+                <p>Регуларно вежбање го ослободува серотонинот, хормонот на среќата. Дури и кратка прошетка може да направи разлика.</p>
+            </div>
+            <div class="tip-card">
+                <h3><i class="fas fa-bed"></i> Здрав сон</h3>
+                <p>7-9 часа квалитетен сон се суштински за менталното здравје. Обиди се да одржуваш редовен режим на спиење.</p>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <a href="resources.html" class="btn btn-primary">
+                <i class="fas fa-book-open"></i> Види повеќе ресурси
+            </a>
+<!--            <a href="contact.html" class="btn btn-secondary">-->
+<!--                <i class="fas fa-headset"></i> Контактирај не-->
+<!--            </a>-->
+        </div>
+    </section>
+</main>
 
 <footer>
-    <p>&copy; 2025 Илина Нена Сара</p>
+    <div class="footer-content">
+        <div class="footer-links">
+            <a href="index.html">Почетна</a>
+            <a href="about.html">За Нас</a>
+            <a href="resources.html">Ресурси</a>
+<!--            <a href="contact.html">Контакт</a>-->
+            <a href="privacy.html">Приватност</a>
+            <a href="terms.html">Услови</a>
+        </div>
+
+        <div class="footer-social">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+
+        <p class="copyright">&copy; 2025 Ментално Здравје | Сите права се задржани</p>
+        <p class="disclaimer">Оваа веб страница не е замена за професионален совет. Доколку ви треба помош, контактирајте здравствен работник.</p>
+    </div>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Dark/Light mode toggle
+    const modeToggle = document.getElementById('mode-toggle');
+    const modeIcon = document.getElementById('mode-icon');
+    const body = document.body;
+
+    // Load saved mode
+    const savedMode = localStorage.getItem('mode');
+    if (savedMode === 'dark') {
+        body.classList.add('dark');
+        modeIcon.textContent = '☀️';
+    } else {
+        modeIcon.textContent = '🌙';
+    }
+
+    modeToggle.addEventListener('click', () => {
+        body.classList.toggle('dark');
+        if(body.classList.contains('dark')) {
+            localStorage.setItem('mode', 'dark');
+            modeIcon.textContent = '☀️';
+        } else {
+            localStorage.setItem('mode', 'light');
+            modeIcon.textContent = '🌙';
+        }
+    });
+
+    // Mood tracker functionality
+    const moodButtons = document.querySelectorAll('.mood-options button');
+    const messageDiv = document.getElementById('personalized-message');
+
+    const adviceMap = {
+        happy: 'Супер е што се чувствуваш така! Продолжи да правиш работи што те прават среќен/среќна. Можеби запиши што точно те направи среќен денес?',
+        neutral: 'Добро е да се чувствуваш стабилно. Земи време за релаксација и себељубие. Можеби мала прошетка или медитација?',
+        sad: 'Жал ми е што се чувствуваш така. Размисли за разговор со пријател или некој професионалец. Запомни, не си сам/а.',
+        angry: 'Кога си лут/лутa, обиди се да земеш длабок здив и да се опуштиш. Можеби запиши што те направи луто? Понекогаш тоа помага.',
+        love: 'Љубовта е прекрасна! Одржувај ги добрите односи и грижи се за своите блиски. Запиши што те направи среќен денес.'
+    };
+
+    const emojiMap = {
+        happy: '😊',
+        neutral: '😐',
+        sad: '😢',
+        angry: '😡',
+        love: '😍'
+    };
+
+    function showAdvice(mood) {
+        const advice = adviceMap[mood] || 'Грижи се за себе! Обиди се да најдеш време за нешто што те радува.';
+        const emoji = emojiMap[mood] || '';
+        messageDiv.innerHTML = `<span>${emoji}</span>${advice}`;
+
+        // highlight selected emoji button & update aria-pressed
+        moodButtons.forEach(btn => {
+            const isSelected = btn.getAttribute('data-mood') === mood;
+            btn.classList.toggle('selected', isSelected);
+            btn.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
+        });
+
+        // Add to mood history
+        addMoodToHistory(mood);
+    }
+
+    // Mood history and chart
+    let moodHistory = JSON.parse(localStorage.getItem('moodHistory')) || [];
+
+    function addMoodToHistory(mood) {
+        const today = new Date().toISOString().split('T')[0];
+
+        // Check if we already have an entry for today
+        const todayIndex = moodHistory.findIndex(entry => entry.date === today);
+
+        if (todayIndex !== -1) {
+            // Update existing entry
+            moodHistory[todayIndex].mood = mood;
+        } else {
+            // Add new entry
+            moodHistory.push({ date: today, mood: mood });
+
+            // Keep only last 7 entries
+            if (moodHistory.length > 7) {
+                moodHistory = moodHistory.slice(-7);
+            }
+        }
+
+        localStorage.setItem('moodHistory', JSON.stringify(moodHistory));
+        updateMoodChart();
+    }
+
+    function updateMoodChart() {
+        const ctx = document.getElementById('moodChart').getContext('2d');
+
+        // Prepare data for chart
+        const labels = moodHistory.map(entry => {
+            const date = new Date(entry.date);
+            return date.toLocaleDateString('mk', { weekday: 'short' });
+        });
+
+        const data = moodHistory.map(entry => {
+            // Convert mood to numerical value for chart
+            switch(entry.mood) {
+                case 'happy': return 5;
+                case 'love': return 4;
+                case 'neutral': return 3;
+                case 'angry': return 2;
+                case 'sad': return 1;
+                default: return 3;
+            }
+        });
+
+        // If no data, show sample data
+        if (moodHistory.length === 0) {
+            labels.push('Пон', 'Вто', 'Сре', 'Чет', 'Пет', 'Саб', 'Нед');
+            data.push(3, 4, 2, 5, 3, 4, 5);
+        }
+
+        if (window.moodChart) {
+            window.moodChart.destroy();
+        }
+
+        window.moodChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Твојата мода',
+                    data: data,
+                    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                    borderColor: 'rgba(255, 255, 255, 1)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    fill: true,
+                    pointBackgroundColor: 'rgba(159, 122, 234, 1)',
+                    pointBorderColor: 'rgba(255, 255, 255, 1)',
+                    pointBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHoverRadius: 7
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        min: 0,
+                        max: 5,
+                        ticks: {
+                            callback: function(value) {
+                                const moods = ['', 'Тажен', 'Лут', 'Нормален', 'Вљубен', 'Среќен'];
+                                return moods[value];
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const value = context.parsed.y;
+                                const moods = ['', 'Тажен', 'Лут', 'Нормален', 'Вљубен', 'Среќен'];
+                                return moods[value];
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Initialize on load
+    window.addEventListener('load', () => {
+        // Load saved mood
+        const savedMood = localStorage.getItem('userMood');
+        if (savedMood) {
+            showAdvice(savedMood);
+        }
+
+        // Initialize chart
+        updateMoodChart();
+    });
+
+    // When mood clicked
+    moodButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const mood = btn.getAttribute('data-mood');
+            localStorage.setItem('userMood', mood);
+            showAdvice(mood);
+        });
+    });
+
+    // Animate elements when they come into view
+    const animateOnScroll = () => {
+        const elements = document.querySelectorAll('.section, .survey-card, .tip-card');
+
+        elements.forEach(element => {
+            const elementPosition = element.getBoundingClientRect().top;
+            const windowHeight = window.innerHeight;
+
+            if (elementPosition < windowHeight - 100) {
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+            }
+        });
+    };
+
+    // Set initial state for animated elements
+    document.querySelectorAll('.section, .survey-card, .tip-card').forEach(element => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(30px)';
+        element.style.transition = 'opacity 0.6s cubic-bezier(0.22, 0.61, 0.36, 1), transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1)';
+    });
+
+    // Run animation check on load and scroll
+    window.addEventListener('load', animateOnScroll);
+    window.addEventListener('scroll', animateOnScroll);
+</script>
+
 </body>
 </html>

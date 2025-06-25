@@ -1,33 +1,1140 @@
 <!DOCTYPE html>
 <html lang="mk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>За Нас</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>За Нас | Ментално Здравје</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+
+        :root {
+            --purple-pastel: #9f7aea;
+            --pink-pastel: #ec4899;
+            --blue-pastel: #3b82f6;
+            --teal-pastel: #2dd4bf;
+            --bg-light: #f9f5ff;
+            --text-light: #fff;
+            --text-dark: #1e1b3a;
+            --bg-dark: #0f0a31;
+            --accent-light: #a78bfa;
+            --accent-dark: #7c3aed;
+            --btn-bg-light: linear-gradient(135deg, var(--pink-pastel), var(--purple-pastel));
+            --btn-bg-dark: linear-gradient(135deg, var(--accent-dark), var(--pink-pastel));
+            --glass-light: rgba(255, 255, 255, 0.25);
+            --glass-dark: rgba(15, 10, 49, 0.4);
+            --section-bg-light: rgba(255, 255, 255, 0.85);
+            --section-bg-dark: rgba(30, 27, 58, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        body.dark {
+            background: var(--bg-dark);
+            color: var(--text-light);
+        }
+
+        /* NAVBAR - Modern Glass Effect */
+        nav {
+            background: linear-gradient(
+                    135deg,
+                    rgba(159, 122, 234, 0.85),
+                    rgba(236, 72, 153, 0.85)
+            );
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 1.2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-light);
+            transition: all 0.6s ease;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
+            border-radius: 0 0 2rem 2rem;
+            border: 1px solid var(--glass-light);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            margin: 0 2rem;
+            max-width: calc(100% - 4rem);
+        }
+
+        body.dark nav {
+            background: linear-gradient(
+                    135deg,
+                    rgba(124, 58, 237, 0.85),
+                    rgba(236, 72, 153, 0.85)
+            );
+            border: 1px solid var(--glass-dark);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: inherit;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            left: 0;
+            bottom: 0;
+            background: var(--text-light);
+            transition: width 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+            border-radius: 3px;
+        }
+
+        nav a:hover,
+        nav a:focus {
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        nav a:hover::after,
+        nav a:focus::after {
+            width: 100%;
+        }
+
+        #mode-toggle {
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid var(--text-light);
+            border-radius: 50px;
+            color: var(--text-light);
+            cursor: pointer;
+            padding: 0.6rem 1.5rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            backdrop-filter: blur(5px);
+        }
+
+        #mode-toggle:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(1.05);
+        }
+
+        body.dark #mode-toggle:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        /* Hero Section with Parallax Effect */
+        .hero {
+            position: relative;
+            height: 90vh;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--text-light);
+            overflow: hidden;
+            margin-bottom: 5rem;
+            margin-top: -100px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                    135deg,
+                    rgba(159, 122, 234, 0.85),
+                    rgba(236, 72, 153, 0.85)
+            );
+            z-index: -1;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+            opacity: 0.4;
+        }
+
+        body.dark .hero::before {
+            background: linear-gradient(
+                    135deg,
+                    rgba(124, 58, 237, 0.85),
+                    rgba(236, 72, 153, 0.85)
+            );
+        }
+
+        .hero-content {
+            max-width: 900px;
+            padding: 0 2rem;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeInUp 1s cubic-bezier(0.22, 0.61, 0.36, 1) 0.3s forwards;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        /* Main Content Sections */
+        main {
+            flex-grow: 1;
+            max-width: 1200px;
+            margin: 0 auto 6rem;
+            padding: 0 2rem;
+            position: relative;
+        }
+
+        .section {
+            background: var(--section-bg-light);
+            padding: 4rem;
+            border-radius: 2rem;
+            margin-bottom: 4rem;
+            box-shadow: 0 25px 50px -12px rgba(159, 122, 234, 0.15);
+            color: var(--text-dark);
+            transition: all 0.6s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(
+                    45deg,
+                    var(--pink-pastel),
+                    var(--purple-pastel)
+            );
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.15;
+        }
+
+        body.dark .section {
+            background: var(--section-bg-dark);
+            color: var(--text-light);
+            box-shadow: 0 25px 50px -12px rgba(124, 58, 237, 0.2);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+        }
+
+        .section h2 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--purple-pastel);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--pink-pastel);
+            border-radius: 2px;
+        }
+
+        body.dark .section h2 {
+            color: var(--accent-light);
+        }
+
+        body.dark .section h2::after {
+            background: var(--pink-pastel);
+        }
+
+        .section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.8rem;
+            font-weight: 400;
+        }
+
+        /* Mission Highlights */
+        .mission-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .highlight-card {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 20px rgba(159, 122, 234, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+
+        body.dark .highlight-card {
+            background: rgba(30, 27, 58, 0.7);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(159, 122, 234, 0.2);
+        }
+
+        .highlight-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--purple-pastel);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        body.dark .highlight-card h3 {
+            color: var(--accent-light);
+        }
+
+        .highlight-card h3 i {
+            font-size: 1.8rem;
+        }
+
+        .highlight-card p {
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        /* Team Section */
+        .team-section {
+            text-align: center;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .team-member {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            transition: all 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+            box-shadow: 0 10px 30px rgba(159, 122, 234, 0.1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.9);
+        }
+
+        body.dark .team-member {
+            background: rgba(30, 27, 58, 0.8);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+        }
+
+        .team-member::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--pink-pastel), var(--purple-pastel));
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(159, 122, 234, 0.25);
+        }
+
+        .team-member img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+        }
+
+        .team-member:hover img {
+            transform: scale(1.05);
+            border-color: var(--purple-pastel);
+        }
+
+        body.dark .team-member:hover img {
+            border-color: var(--accent-light);
+        }
+
+        .team-member h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--purple-pastel);
+        }
+
+        body.dark .team-member h3 {
+            color: var(--accent-light);
+        }
+
+        .team-member p.position {
+            font-weight: 600;
+            color: var(--pink-pastel);
+            margin-bottom: 1rem;
+        }
+
+        .team-member p.bio {
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+            opacity: 0.9;
+        }
+
+        body.dark .team-member p.bio {
+            color: var(--text-light);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(159, 122, 234, 0.1);
+            color: var(--purple-pastel);
+            transition: all 0.3s ease;
+        }
+
+        body.dark .social-links a {
+            background: rgba(124, 58, 237, 0.1);
+            color: var(--accent-light);
+        }
+
+        .social-links a:hover {
+            background: var(--purple-pastel);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        body.dark .social-links a:hover {
+            background: var(--accent-light);
+        }
+
+        /* Buttons */
+        .btn-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            transition: all 0.4s ease;
+        }
+
+        .btn-primary {
+            background: var(--btn-bg-light);
+            color: white;
+            box-shadow: 0 10px 20px rgba(236, 72, 153, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(236, 72, 153, 0.4);
+        }
+
+        body.dark .btn-primary {
+            background: var(--btn-bg-dark);
+        }
+
+        .btn-secondary {
+            background: rgba(159, 122, 234, 0.1);
+            color: var(--purple-pastel);
+            border: 2px solid var(--purple-pastel);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(159, 122, 234, 0.2);
+            transform: translateY(-5px);
+            color: var(--purple-pastel);
+        }
+
+        body.dark .btn-secondary {
+            color: var(--accent-light);
+            border-color: var(--accent-light);
+            background: rgba(124, 58, 237, 0.1);
+        }
+
+        body.dark .btn-secondary:hover {
+            background: rgba(124, 58, 237, 0.2);
+        }
+
+        .btn i {
+            margin-right: 0.8rem;
+            font-size: 1.2rem;
+        }
+
+        /* Partners Section */
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+            align-items: center;
+        }
+
+        .partner-logo {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 120px;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        body.dark .partner-logo {
+            background: rgba(30, 27, 58, 0.8);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+        }
+
+        .partner-logo:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(159, 122, 234, 0.2);
+        }
+
+        .partner-logo img {
+            max-width: 100%;
+            max-height: 80px;
+            filter: grayscale(100%);
+            opacity: 0.7;
+            transition: all 0.4s ease;
+        }
+
+        .partner-logo:hover img {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+
+        /* Stats Section */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 1.5rem;
+            background: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 10px 20px rgba(159, 122, 234, 0.1);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+
+        body.dark .stat-card {
+            background: rgba(30, 27, 58, 0.7);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(159, 122, 234, 0.2);
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--purple-pastel);
+            margin-bottom: 0.5rem;
+            line-height: 1;
+            font-family: 'Playfair Display', serif;
+        }
+
+        body.dark .stat-number {
+            color: var(--accent-light);
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        body.dark .stat-label {
+            color: var(--text-light);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 4rem 2rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            border-top: 1px solid rgba(221, 221, 221, 0.3);
+            background: var(--bg-light);
+            transition: all 0.6s ease;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--pink-pastel), var(--purple-pastel));
+        }
+
+        body.dark footer {
+            background: #111827;
+            color: var(--text-light);
+            border-color: rgba(75, 65, 107, 0.3);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .footer-links a {
+            color: var(--purple-pastel);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: var(--pink-pastel);
+            transition: width 0.3s ease;
+        }
+
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+
+        body.dark .footer-links a {
+            color: var(--accent-light);
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2.5rem 0;
+        }
+
+        .footer-social a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(159, 122, 234, 0.1);
+            color: var(--purple-pastel);
+            transition: all 0.3s ease;
+            font-size: 1.3rem;
+        }
+
+        body.dark .footer-social a {
+            background: rgba(124, 58, 237, 0.1);
+            color: var(--accent-light);
+        }
+
+        .footer-social a:hover {
+            background: var(--purple-pastel);
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        body.dark .footer-social a:hover {
+            background: var(--accent-light);
+        }
+
+        .copyright {
+            margin-top: 2rem;
+            font-size: 0.95rem;
+            opacity: 0.8;
+        }
+
+        .disclaimer {
+            max-width: 700px;
+            margin: 1.5rem auto 0;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 1024px) {
+            nav {
+                padding: 1rem 2rem;
+                margin: 0 1rem;
+                max-width: calc(100% - 2rem);
+            }
+
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+
+            .section {
+                padding: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+                border-radius: 0 0 1.5rem 1.5rem;
+                margin: 0;
+                max-width: 100%;
+            }
+
+            nav ul {
+                gap: 1.5rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero {
+                height: auto;
+                min-height: auto;
+                padding: 8rem 0;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section {
+                padding: 2.5rem 1.5rem;
+            }
+
+            .mission-highlights,
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-container {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .section h2 {
+                font-size: 2rem;
+            }
+
+            .team-member img {
+                width: 120px;
+                height: 120px;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+
 <nav>
     <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About Us</a></li>
+        <li><a href="index.html">Почетна</a></li>
+        <li><a href="about.html">За Нас</a></li>
+        <li><a href="the_team.html">Нашиот тим</a></li>
+        <li><a href="resources.html">Ресурси</a></li>
+<!--        <li><a href="contact.html">Контакт</a></li>-->
     </ul>
+    <button id="mode-toggle" aria-label="Toggle dark/light mode">
+        <span id="mode-icon">🌙</span>
+        <span>Темна / Светла</span>
+    </button>
 </nav>
 
-<header>
-    <h1>За Нас</h1>
-    <p>Студијата за однесувањaта поврзани со здравјето кај децата на училишна возраст (HBSC) претставува меѓународна, колаборативна студија со Светската здравствена организација (СЗО, Регионална канцеларија за Европа), која се спроведува секои четири години во повеќе од 50 земји. Целта на студијата е да се процени здравјето и здравственото однесување кај адолесцентите на возраст од 11 до 15 години.</p>
-</header>
+<div class="hero">
+    <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Background" class="hero-bg">
+    <div class="hero-content">
+        <h1>Нашата Приказна</h1>
+        <p>Студијата за однесувањaта поврзани со здравјето кај децата на училишна возраст (HBSC) претставува меѓународна, колаборативна студија со Светската здравствена организација (СЗО, Регионална канцеларија за Европа), која се спроведува секои четири години во повеќе од 50 земји.</p>
+        <div class="btn-container">
+            <a href="#mission" class="btn btn-primary">
+                <i class="fas fa-bullseye"></i> Нашата мисија
+            </a>
+            <a href="#team" class="btn btn-secondary">
+                <i class="fas fa-users"></i> Нашиот тим
+            </a>
+        </div>
+    </div>
+</div>
 
-<section>
-    <h3>Нашата мисија</h3>
-    <p>Во Македонија, многу деца најлесно се отвораат за своите грижи и проблеми со своите родители, чувствувајќи ја најголемата поддршка од семејството, во споредба со нивните врсници од 42 земји. Ова е еден од клучните наоди од меѓународната Студија за младите и нивниот однос кон здравјето. Но, на жалост, како што сиромаштијата расте, така и поддршката и разбирањето од семејствата започнуваат да опаѓаат.
+<main>
+    <section id="mission" class="section">
+        <h2>Нашата мисија</h2>
+        <p>Во Македонија, многу деца најлесно се отвораат за своите грижи и проблеми со своите родители, чувствувајќи ја најголемата поддршка од семејството, во споредба со нивните врсници од 42 земји. Ова е еден од клучните наоди од меѓународната Студија за младите и нивниот однос кон здравјето.</p>
 
-        Токму затоа, нашиот тим ја спроведува оваа анкета за да ја подигне свеста за важноста на менталното здравје и да најде начин како да ја направи оваа тема поактуелна и присутна во образовните институции. Нашата цел е да создадеме простор за отворен разговор, да обезбедиме поддршка и да им помогнеме на младите да го разберат и подобрат своето ментално здравје.</p>
-</section>
+        <p>Нашиот тим ја спроведува оваа анкета за да ја подигне свеста за важноста на менталното здравје и да најде начин како да ја направи оваа тема поактуелна и присутна во образовните институции.</p>
+
+        <div class="mission-highlights">
+            <div class="highlight-card">
+                <h3><i class="fas fa-heart"></i> Нашата визија</h3>
+                <p>Да создадеме општество каде менталното здравје ќе биде приоритет, а младите ќе имаат поддршка и ресурси за да се справат со предизвиците.</p>
+            </div>
+            <div class="highlight-card">
+                <h3><i class="fas fa-bullseye"></i> Нашата цел</h3>
+                <p>Да обезбедиме квалитетни податоци и анализи кои ќе послужат како основа за креирање на подобри политики и програми за ментално здравје.</p>
+            </div>
+            <div class="highlight-card">
+                <h3><i class="fas fa-hand-holding-heart"></i> Нашиот пристап</h3>
+                <p>Секојдневно работиме на креирање безбедни простори за отворен разговор за менталното здравје и емоционалната благосостојба.</p>
+            </div>
+        </div>
+
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Земји учеснички</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">11-15</div>
+                <div class="stat-label">Годишна возраст</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">4</div>
+                <div class="stat-label">Години циклус</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">1000+</div>
+                <div class="stat-label">Учесници</div>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <a href="https://form.typeform.com/to/GfOY2Myt" class="btn btn-primary">
+                <i class="fas fa-clipboard-list"></i> Учествувај во анкетата
+            </a>
+            <a href="resources.html" class="btn btn-secondary">
+                <i class="fas fa-book-open"></i> Ресурси и материјали
+            </a>
+        </div>
+    </section>
+
+    <section id="team" class="section team-section">
+        <h2>Нашиот тим</h2>
+        <p>Нашиот тим се состои од посветени професионалци кои работат на промовирање на менталното здравје кај младите. Секој член на тимот носи уникатни вештини и искуство кое го прави нашиот пристап сеопфатен и ефективен.</p>
+
+        <div class="team-grid">
+            <div class="team-member">
+                <img src="lina.png" alt="Илина Нена Сара">
+                <h3>Лина Ќостарова-Унковска</h3>
+                <p class="position">Клинички психолог</p>
+                <p class="bio">Клинички психолог, специјалист за психологија на траума и криза и главен истражувач во македонскиот ХБСЦ тим, од 1998 година. По 20-годишна работа на Универзитетот во Скопје, како предавач на предметите клиничка психологија и ментално здравје, го основаше Центарот за психосоцијална и кризна акција, како независна професионална агенција. Во рамки на центарот се организираат проекти, интервенции и акции како одговор на итната потреба за психосоцијална помош и поддршка на индивидуалци, групи и заедници под ризик, а особено деца и млади кои се соочуваат со сиромаштија, социјална нееднаквост, загрозување на човековите права, во периоди на многу изразена и турбулентна трансформација на системот.
+                </p>
+                <div class="social-links">
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                    <a href="#" aria-label="Research"><i class="fas fa-graduation-cap"></i></a>
+                </div>
+            </div>
+            <div class="team-member">
+                <img src="kalina.png" alt="Марко Петров">
+                <h3>Калина Сотироска Иваноска</h3>
+                <p class="position">Истражувач</p>
+                <p class="bio">
+                    Калина Сотироска Иваноска е вонреден професор на Институтот за психологија при Филозофскиот факултет во Скопје на  Универзитетот „Св. Кирил и Методиј“ во Скопје. Нејзинте истражувачки интереси се насочени кон унапредување на училиштето и наставниот кадар со цел подобрување на здравјето и добросостојбата на младите. Активно се ангажира за практично подобрување на животите на младите.
+                </p>
+                <div class="social-links">
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                    <a href="#" aria-label="Research"><i class="fas fa-graduation-cap"></i></a>
+                </div>
+            </div>
+            <div class="team-member">
+                <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Ана Стојанова">
+                <h3>Маја Цветаноска </h3>
+                <p class="position">Едукатор</p>
+                <p class="bio">
+                    Образованието на Маја е во областа на психологијата и градењето мир, а пак професионалниот фокус и е на изнаоѓање иновативни решенија во образованието и социјалната инклузија. Има работено на проекти за ран детски развој, правата на детето,
+                    разрешување конфликти, интеграција на ИКТ во образованието, подготовка за вработување на млади, инклузија на деца и млади од ранливи групи, психо-социјална поддршка на децата бегалци, како и на проекти за подигање на свеста за правата на бегалците. Како претприемник, има основано градинка и НВО за да понуди алтернативни пристапи и во текот на своето речиси 25 годишно работно искуство има воведено иновации преку градење на професионални заедници за учење меѓу наставници и воспитувачи и примена на косоздавање (co-creation) со вклучување на млади. Во 2018 година се приклучува кон македонскиот тим на Студијата ХБСЦ.
+                </p>
+                <div class="social-links">
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                    <a href="#" aria-label="Research"><i class="fas fa-graduation-cap"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>Партнери и соработници</h2>
+        <p>Работиме во тесна соработка со различни организации и институции за да го постигнеме нашиот заеднички цил - подобро ментално здравје за младите.</p>
+
+        <div class="partners-grid">
+            <div class="partner-logo">
+                <img src="https://via.placeholder.com/150x60?text=WHO" alt="СЗО">
+            </div>
+            <div class="partner-logo">
+                <img src="https://via.placeholder.com/150x60?text=МОН" alt="Министерство за образование">
+            </div>
+            <div class="partner-logo">
+                <img src="https://via.placeholder.com/150x60?text=УК" alt="Универзитетски клиники">
+            </div>
+            <div class="partner-logo">
+                <img src="https://via.placeholder.com/150x60?text=НВО" alt="Невладини организации">
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <a href="mailto:partnerships@mentalnozdravje.mk" class="btn btn-primary">
+                <i class="fas fa-handshake"></i> Стани партнер
+            </a>
+<!--            <a href="contact.html" class="btn btn-secondary">-->
+<!--                <i class="fas fa-envelope"></i> Контактирај не-->
+<!--            </a>-->
+        </div>
+    </section>
+</main>
 
 <footer>
-    <p>&copy; 2025 Илина Нена Сара</p>
+    <div class="footer-content">
+        <div class="footer-links">
+            <a href="index.html">Почетна</a>
+            <a href="about.html">За Нас</a>
+            <a href="resources.html">Ресурси</a>
+<!--            <a href="contact.html">Контакт</a>-->
+            <a href="privacy.html">Приватност</a>
+            <a href="terms.html">Услови</a>
+        </div>
+
+        <div class="footer-social">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+
+        <p class="copyright">&copy; 2025 Ментално Здравје | Сите права се задржани</p>
+        <p class="disclaimer">Оваа веб страница не е замена за професионален совет. Доколку ви треба помош, контактирајте здравствен работник.</p>
+    </div>
 </footer>
+
+<script>
+    // Dark/Light mode toggle
+    const modeToggle = document.getElementById('mode-toggle');
+    const modeIcon = document.getElementById('mode-icon');
+    const body = document.body;
+
+    // Load saved mode
+    const savedMode = localStorage.getItem('mode');
+    if (savedMode === 'dark') {
+        body.classList.add('dark');
+        modeIcon.textContent = '☀️';
+    } else {
+        modeIcon.textContent = '🌙';
+    }
+
+    modeToggle.addEventListener('click', () => {
+        body.classList.toggle('dark');
+        if(body.classList.contains('dark')) {
+            localStorage.setItem('mode', 'dark');
+            modeIcon.textContent = '☀️';
+        } else {
+            localStorage.setItem('mode', 'light');
+            modeIcon.textContent = '🌙';
+        }
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Animate elements when they come into view
+    const animateOnScroll = () => {
+        const elements = document.querySelectorAll('.section, .highlight-card, .team-member, .stat-card, .partner-logo');
+
+        elements.forEach(element => {
+            const elementPosition = element.getBoundingClientRect().top;
+            const windowHeight = window.innerHeight;
+
+            if (elementPosition < windowHeight - 100) {
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+            }
+        });
+    };
+
+    // Set initial state for animated elements
+    document.querySelectorAll('.section, .highlight-card, .team-member, .stat-card, .partner-logo').forEach(element => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(30px)';
+        element.style.transition = 'opacity 0.6s cubic-bezier(0.22, 0.61, 0.36, 1), transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1)';
+    });
+
+    // Run animation check on load and scroll
+    window.addEventListener('load', animateOnScroll);
+    window.addEventListener('scroll', animateOnScroll);
+</script>
+
 </body>
 </html>

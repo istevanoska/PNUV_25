@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="mk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ресурси | Ментално здравје</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+
+    :root {
+      --purple-pastel: #9f7aea;
+      --pink-pastel: #ec4899;
+      --blue-pastel: #3b82f6;
+      --teal-pastel: #2dd4bf;
+      --bg-light: #f9f5ff;
+      --text-light: #fff;
+      --text-dark: #1e1b3a;
+      --bg-dark: #0f0a31;
+      --accent-light: #a78bfa;
+      --accent-dark: #7c3aed;
+      --btn-bg-light: linear-gradient(135deg, var(--pink-pastel), var(--purple-pastel));
+      --btn-bg-dark: linear-gradient(135deg, var(--accent-dark), var(--pink-pastel));
+      --glass-light: rgba(255, 255, 255, 0.25);
+      --glass-dark: rgba(15, 10, 49, 0.4);
+      --section-bg-light: rgba(255, 255, 255, 0.85);
+      --section-bg-dark: rgba(30, 27, 58, 0.85);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-dark);
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    body.dark {
+      background: var(--bg-dark);
+      color: var(--text-light);
+    }
+
+    /* NAVBAR - Modern Glass Effect */
+    nav {
+      background: linear-gradient(
+              135deg,
+              rgba(159, 122, 234, 0.85),
+              rgba(236, 72, 153, 0.85)
+      );
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 1.2rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text-light);
+      transition: all 0.6s ease;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
+      border-radius: 0 0 2rem 2rem;
+      border: 1px solid var(--glass-light);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      margin: 0 2rem;
+      max-width: calc(100% - 4rem);
+    }
+
+    body.dark nav {
+      background: linear-gradient(
+              135deg,
+              rgba(124, 58, 237, 0.85),
+              rgba(236, 72, 153, 0.85)
+      );
+      border: 1px solid var(--glass-dark);
+    }
+
+    nav ul {
+      display: flex;
+      gap: 3rem;
+      list-style: none;
+    }
+
+    nav a {
+      color: inherit;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      position: relative;
+      padding: 0.5rem 0;
+      transition: all 0.3s ease;
+      letter-spacing: 0.5px;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      left: 0;
+      bottom: 0;
+      background: var(--text-light);
+      transition: width 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+      border-radius: 3px;
+    }
+
+    nav a:hover,
+    nav a:focus {
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    nav a:hover::after,
+    nav a:focus::after {
+      width: 100%;
+    }
+
+    #mode-toggle {
+      background: rgba(255, 255, 255, 0.15);
+      border: 2px solid var(--text-light);
+      border-radius: 50px;
+      color: var(--text-light);
+      cursor: pointer;
+      padding: 0.6rem 1.5rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      backdrop-filter: blur(5px);
+    }
+
+    #mode-toggle:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: scale(1.05);
+    }
+
+    body.dark #mode-toggle:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    /* Hero Section with Parallax Effect */
+    .hero {
+      position: relative;
+      height: 40vh;
+      min-height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--text-light);
+      overflow: hidden;
+      margin-bottom: 3rem;
+      margin-top: -100px;
+      padding-bottom: -40px;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(
+              135deg,
+              rgba(159, 122, 234, 0.85),
+              rgba(236, 72, 153, 0.85)
+      );
+      z-index: -1;
+    }
+
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
+      opacity: 0.4;
+    }
+
+    body.dark .hero::before {
+      background: linear-gradient(
+              135deg,
+              rgba(124, 58, 237, 0.85),
+              rgba(236, 72, 153, 0.85)
+      );
+    }
+
+    .hero-content {
+      max-width: 900px;
+      padding: 0 2rem;
+      transform: translateY(20px);
+      opacity: 0;
+      animation: fadeInUp 1s cubic-bezier(0.22, 0.61, 0.36, 1) 0.3s forwards;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+      margin-top: 80px;
+      line-height: 1.2;
+      text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto 2.5rem;
+      opacity: 0.9;
+      font-weight: 400;
+    }
+
+    /* Main Content Sections */
+    main {
+      flex-grow: 1;
+      max-width: 1200px;
+      margin: 0 auto 6rem;
+      padding: 0 2rem;
+      position: relative;
+    }
+
+    .section {
+      background: var(--section-bg-light);
+      padding: 4rem;
+      border-radius: 2rem;
+      margin-bottom: 4rem;
+      box-shadow: 0 25px 50px -12px rgba(159, 122, 234, 0.15);
+      color: var(--text-dark);
+      transition: all 0.6s ease;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .section::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 300px;
+      height: 300px;
+      background: linear-gradient(
+              45deg,
+              var(--pink-pastel),
+              var(--purple-pastel)
+      );
+      border-radius: 50%;
+      filter: blur(80px);
+      z-index: -1;
+      opacity: 0.15;
+    }
+
+    body.dark .section {
+      background: var(--section-bg-dark);
+      color: var(--text-light);
+      box-shadow: 0 25px 50px -12px rgba(124, 58, 237, 0.2);
+      border: 1px solid rgba(124, 58, 237, 0.2);
+    }
+
+    .section h2 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      color: var(--purple-pastel);
+      position: relative;
+      display: inline-block;
+    }
+
+    .section h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: var(--pink-pastel);
+      border-radius: 2px;
+    }
+
+    body.dark .section h2 {
+      color: var(--accent-light);
+    }
+
+    body.dark .section h2::after {
+      background: var(--pink-pastel);
+    }
+
+    .section p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 1.8rem;
+      font-weight: 400;
+    }
+
+    /* Resources Section */
+    .resources-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2.5rem;
+      margin-top: 3rem;
+    }
+
+    .resource-card {
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      transition: all 0.4s ease;
+      box-shadow: 0 10px 20px rgba(159, 122, 234, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      position: relative;
+      overflow: hidden;
+    }
+
+    body.dark .resource-card {
+      background: rgba(30, 27, 58, 0.7);
+      border: 1px solid rgba(124, 58, 237, 0.2);
+    }
+
+    .resource-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(159, 122, 234, 0.2);
+    }
+
+    .resource-card.featured {
+      border: 2px solid var(--pink-pastel);
+      position: relative;
+    }
+
+    body.dark .resource-card.featured {
+      border-color: var(--pink-pastel);
+    }
+
+    .featured-badge {
+      position: absolute;
+      top: -10px;
+      right: 20px;
+      background: var(--pink-pastel);
+      color: white;
+      padding: 0.5rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+    }
+
+    .resource-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--purple-pastel);
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    body.dark .resource-card h3 {
+      color: var(--accent-light);
+    }
+
+    .resource-card h3 i {
+      font-size: 1.8rem;
+    }
+
+    .resource-card p {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .resource-link {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      background: var(--purple-pastel);
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      margin-top: 1rem;
+    }
+
+    .resource-link:hover {
+      background: var(--pink-pastel);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(236, 72, 153, 0.3);
+    }
+
+    body.dark .resource-link {
+      background: var(--accent-light);
+    }
+
+    body.dark .resource-link:hover {
+      background: var(--pink-pastel);
+    }
+
+    /* Buttons */
+    .btn-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 3rem;
+      justify-content: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      transition: all 0.4s ease;
+    }
+
+    .btn-primary {
+      background: var(--btn-bg-light);
+      color: white;
+      box-shadow: 0 10px 20px rgba(236, 72, 153, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 15px 30px rgba(236, 72, 153, 0.4);
+    }
+
+    body.dark .btn-primary {
+      background: var(--btn-bg-dark);
+    }
+
+    .btn-secondary {
+      background: rgba(159, 122, 234, 0.1);
+      color: var(--purple-pastel);
+      border: 2px solid var(--purple-pastel);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(159, 122, 234, 0.2);
+      transform: translateY(-5px);
+      color: var(--purple-pastel);
+    }
+
+    body.dark .btn-secondary {
+      color: var(--accent-light);
+      border-color: var(--accent-light);
+      background: rgba(124, 58, 237, 0.1);
+    }
+
+    body.dark .btn-secondary:hover {
+      background: rgba(124, 58, 237, 0.2);
+    }
+
+    .btn i {
+      margin-right: 0.8rem;
+      font-size: 1.2rem;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 4rem 2rem;
+      font-weight: 500;
+      color: var(--text-dark);
+      border-top: 1px solid rgba(221, 221, 221, 0.3);
+      background: var(--bg-light);
+      transition: all 0.6s ease;
+      position: relative;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, var(--pink-pastel), var(--purple-pastel));
+    }
+
+    body.dark footer {
+      background: #111827;
+      color: var(--text-light);
+      border-color: rgba(75, 65, 107, 0.3);
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .footer-links a {
+      color: var(--purple-pastel);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      position: relative;
+    }
+
+    .footer-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: var(--pink-pastel);
+      transition: width 0.3s ease;
+    }
+
+    .footer-links a:hover::after {
+      width: 100%;
+    }
+
+    body.dark .footer-links a {
+      color: var(--accent-light);
+    }
+
+    .footer-social {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin: 2.5rem 0;
+    }
+
+    .footer-social a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(159, 122, 234, 0.1);
+      color: var(--purple-pastel);
+      transition: all 0.3s ease;
+      font-size: 1.3rem;
+    }
+
+    body.dark .footer-social a {
+      background: rgba(124, 58, 237, 0.1);
+      color: var(--accent-light);
+    }
+
+    .footer-social a:hover {
+      background: var(--purple-pastel);
+      color: white;
+      transform: translateY(-5px);
+    }
+
+    body.dark .footer-social a:hover {
+      background: var(--accent-light);
+    }
+
+    .copyright {
+      margin-top: 2rem;
+      font-size: 0.95rem;
+      opacity: 0.8;
+    }
+
+    .disclaimer {
+      max-width: 700px;
+      margin: 1.5rem auto 0;
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0px); }
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 1024px) {
+      nav {
+        padding: 1rem 2rem;
+        margin: 0 1rem;
+        max-width: calc(100% - 2rem);
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+      }
+
+      .section {
+        padding: 3rem;
+      }
+
+      .resources-container {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+        border-radius: 0 0 1.5rem 1.5rem;
+        margin: 0;
+        max-width: 100%;
+      }
+
+      nav ul {
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .hero {
+        height: auto;
+        min-height: auto;
+        padding: 6rem 0;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+      }
+
+      .section {
+        padding: 2.5rem 1.5rem;
+      }
+
+      .resources-container {
+        grid-template-columns: 1fr;
+      }
+
+      .btn-container {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .section h2 {
+        font-size: 2rem;
+      }
+
+      .footer-links {
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+<nav>
+  <ul>
+    <li><a href="index.html">Почетна</a></li>
+    <li><a href="about.html">За Нас</a></li>
+    <li><a href="the_team.html">Нашиот тим</a></li>
+    <li><a href="resources.html">Ресурси</a></li>
+<!--    <li><a href="contact.html">Контакт</a></li>-->
+  </ul>
+  <button id="mode-toggle" aria-label="Toggle dark/light mode">
+    <span id="mode-icon">🌙</span>
+    <span>Темна / Светла</span>
+  </button>
+</nav>
+
+<div class="hero">
+  <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Resources Background" class="hero-bg">
+  <div class="hero-content">
+    <h1>Корисни Ресурси</h1>
+    <p>Откриј ги најдобрите ресурси за ментално здравје и благосостојба.</p>
+  </div>
+</div>
+
+<main>
+  <section class="section">
+    <h2>Меѓународни Ресурси</h2>
+    <p>Истражете ги овие меѓународни организации и платформи кои нудат вредни ресурси за ментално здравје.</p>
+
+    <div class="resources-container">
+      <!-- Featured Resource 1 -->
+      <div class="resource-card featured">
+        <div class="featured-badge">Препорачано</div>
+        <h3><i class="fas fa-globe"></i> HBSC Македонија</h3>
+        <p>Истражување за здравјето и однесувањето на школските деца (HBSC) е меѓународна студија поддржана од СЗО.</p>
+        <a href="https://www.mkhbsc.com/" target="_blank" class="resource-link">
+          <i class="fas fa-external-link-alt"></i> Посети сајт
+        </a>
+      </div>
+
+      <!-- Featured Resource 2 -->
+      <div class="resource-card featured">
+        <div class="featured-badge">Препорачано</div>
+        <h3><i class="fas fa-globe"></i> HBSC International</h3>
+        <p>Меѓународната HBSC мрежа обезбедува податоци за здравјето и благосостојбата на адолесцентите.</p>
+        <a href="https://hbsc.org/" target="_blank" class="resource-link">
+          <i class="fas fa-external-link-alt"></i> Посети сајт
+        </a>
+      </div>
+
+      <!-- Other Resources -->
+      <div class="resource-card">
+        <h3><i class="fas fa-book"></i> Светска здравствена организација</h3>
+        <p>Ресурси и публикации за ментално здравје од водечката светска здравствена организација.</p>
+        <a href="https://www.who.int/health-topics/mental-health" target="_blank" class="resource-link">
+          <i class="fas fa-external-link-alt"></i> Посети сајт
+        </a>
+      </div>
+
+      <div class="resource-card">
+        <h3><i class="fas fa-heart"></i> UNICEF Ментално здравје</h3>
+        <p>Ресурси за ментално здравје на деца и млади од UNICEF.</p>
+        <a href="https://www.unicef.org/mental-health" target="_blank" class="resource-link">
+          <i class="fas fa-external-link-alt"></i> Посети сајт
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Локални Ресурси</h2>
+    <p>Корисни линкови и организации во Македонија кои работат на поддршка на менталното здравје.</p>
+
+    <div class="resources-container">
+      <div class="resource-card">
+        <h3><i class="fas fa-hospital"></i> Клиника за психијатрија</h3>
+        <p>Служби за психијатриска нега и поддршка во Македонија.</p>
+        <a href="#" class="resource-link">
+          <i class="fas fa-external-link-alt"></i> Дознај повеќе
+        </a>
+      </div>
+
+      <div class="resource-card">
+        <h3><i class="fas fa-phone-alt"></i> Телефонска поддршка</h3>
+        <p>Бесплатни телефонски линии за поддршка во кризни ситуации.</p>
+        <a href="#" class="resource-link">
+          <i class="fas fa-external-link-alt"></i> Дознај повеќе
+        </a>
+      </div>
+
+      <div class="resource-card">
+        <h3><i class="fas fa-users"></i> Поддршка за млади</h3>
+        <p>Организации кои нудат поддршка за менталното здравје на младите.</p>
+        <a href="#" class="resource-link">
+          <i class="fas fa-external-link-alt"></i> Дознај повеќе
+        </a>
+      </div>
+
+      <div class="resource-card">
+        <h3><i class="fas fa-school"></i> Школски ресурси</h3>
+        <p>Материјали и програми за поддршка на менталното здравје во училиштата.</p>
+        <a href="#" class="resource-link">
+          <i class="fas fa-external-link-alt"></i> Дознај повеќе
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Едукативни Материјали</h2>
+    <p>Корисни материјали, водичи и алатки за подобрување на менталното здравје.</p>
+
+    <div class="resources-container">
+      <div class="resource-card">
+        <h3><i class="fas fa-file-pdf"></i> Водичи за ментално здравје</h3>
+        <p>Практични водичи за справување со стрес, анксиозност и други предизвици.</p>
+        <a href="#" class="resource-link">
+          <i class="fas fa-download"></i> Преземи PDF
+        </a>
+      </div>
+
+      <div class="resource-card">
+        <h3><i class="fas fa-video"></i> Видео лекции</h3>
+        <p>Едукативни видеа за разбирање и подобрување на менталното здравје.</p>
+        <a href="#" class="resource-link">
+          <i class="fab fa-youtube"></i> Гледај на YouTube
+        </a>
+      </div>
+
+      <div class="resource-card">
+        <h3><i class="fas fa-mobile-alt"></i> Апликации</h3>
+        <p>Корисни апликации за медитација, трекинг на расположение и ментална благосостојба.</p>
+        <a href="#" class="resource-link">
+          <i class="fas fa-external-link-alt"></i> Дознај повеќе
+        </a>
+      </div>
+
+      <div class="resource-card">
+        <h3><i class="fas fa-book-open"></i> Книги и статии</h3>
+        <p>Препорачана литература за ментално здравје и личен развој.</p>
+        <a href="#" class="resource-link">
+          <i class="fas fa-external-link-alt"></i> Дознај повеќе
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-content">
+    <div class="footer-links">
+      <a href="index.html">Почетна</a>
+      <a href="about.html">За Нас</a>
+      <a href="team.html">Нашиот Тим</a>
+      <a href="resources.html">Ресурси</a>
+<!--      <a href="contact.html">Контакт</a>-->
+      <a href="privacy.html">Приватност</a>
+    </div>
+
+    <div class="footer-social">
+      <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+    </div>
+
+    <p class="copyright">&copy; 2025 Ментално Здравје | Сите права се задржани</p>
+    <p class="disclaimer">Оваа веб страница не е замена за професионален совет. Доколку ви треба помош, контактирајте здравствен работник.</p>
+  </div>
+</footer>
+
+<script>
+  // Dark/Light mode toggle
+  const modeToggle = document.getElementById('mode-toggle');
+  const modeIcon = document.getElementById('mode-icon');
+  const body = document.body;
+
+  // Load saved mode
+  const savedMode = localStorage.getItem('mode');
+  if (savedMode === 'dark') {
+    body.classList.add('dark');
+    modeIcon.textContent = '☀️';
+  } else {
+    modeIcon.textContent = '🌙';
+  }
+
+  modeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark');
+    if(body.classList.contains('dark')) {
+      localStorage.setItem('mode', 'dark');
+      modeIcon.textContent = '☀️';
+    } else {
+      localStorage.setItem('mode', 'light');
+      modeIcon.textContent = '🌙';
+    }
+  });
+
+  // Animate elements when they come into view
+  const animateOnScroll = () => {
+    const elements = document.querySelectorAll('.section, .resource-card');
+
+    elements.forEach(element => {
+      const elementPosition = element.getBoundingClientRect().top;
+      const windowHeight = window.innerHeight;
+
+      if (elementPosition < windowHeight - 100) {
+        element.style.opacity = '1';
+        element.style.transform = 'translateY(0)';
+      }
+    });
+  };
+
+  // Set initial state for animated elements
+  document.querySelectorAll('.section, .resource-card').forEach(element => {
+    element.style.opacity = '0';
+    element.style.transform = 'translateY(30px)';
+    element.style.transition = 'opacity 0.6s cubic-bezier(0.22, 0.61, 0.36, 1), transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1)';
+  });
+
+  // Run animation check on load and scroll
+  window.addEventListener('load', animateOnScroll);
+  window.addEventListener('scroll', animateOnScroll);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="mk">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Дневник</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #fdf2f8, #ede9fe);
+            color: #333;
+            transition: background 0.4s, color 0.4s;
+            scroll-behavior: smooth;
+        }
+
+        nav {
+            background: linear-gradient(90deg, #c084fc, #f472b6);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #ffe6f0;
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: white;
+            text-decoration: underline;
+        }
+
+        main {
+            max-width: 850px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.7s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            text-align: center;
+            color: #a855f7;
+            margin-bottom: 1.5rem;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+            border-radius: 1rem;
+            border: 1px solid #ccc;
+            margin-bottom: 1rem;
+            resize: vertical;
+            transition: border-color 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #a855f7;
+        }
+
+        button {
+            background: #a855f7;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.8rem;
+            font-weight: 600;
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background: #9333ea;
+            transform: scale(1.05);
+        }
+
+        .entries {
+            margin-top: 2rem;
+        }
+
+        .entry {
+            background: linear-gradient(135deg, #f3e8ff, #fae8ff);
+            padding: 1rem 1.2rem;
+            border-radius: 1.2rem;
+            margin-bottom: 1.2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            animation: slideIn 0.4s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .entry strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #7e22ce;
+        }
+
+        .notification {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.95rem;
+            color: #16a34a;
+            display: none;
+        }
+
+        /* Dark Mode */
+        .dark {
+            background: #1e1b4b;
+            color: #f3e8ff;
+        }
+
+        .dark main {
+            background: #312e81;
+        }
+
+        .dark textarea {
+            background: #4338ca;
+            color: #fff;
+            border-color: #818cf8;
+        }
+
+        .dark .entry {
+            background: linear-gradient(135deg, #4f46e5, #9333ea);
+            color: white;
+        }
+
+        .dark nav,
+        .dark .theme-toggle {
+            background: linear-gradient(90deg, #6d28d9, #db2777);
+            color: white;
+        }
+
+        .dark .theme-toggle {
+            color: #ddd6fe;
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #d8b4fe;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background-color: transparent;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #a855f7;
+            color: white;
+            padding: 0.6rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .dark .back-to-top {
+            background: #6d28d9;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html">🏠 Назад</a>
+    <span class="theme-toggle" onclick="toggleTheme()">🌓 Смени тема</span>
+</nav>
+
+<main>
+    <h1>Дневник</h1>
+    <textarea id="entry" rows="5" placeholder="Напиши ги твоите мисли..."></textarea>
+    <button onclick="saveEntry()">💾 Зачувај белешка</button>
+    <p class="notification" id="saved-msg">Белешката е успешно зачувана ✅</p>
+
+    <div class="entries" id="entries"></div>
+</main>
+
+<div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">⤴️</div>
+
+<script>
+    function saveEntry() {
+        const today = new Date().toDateString();
+        const value = document.getElementById('entry').value.trim();
+        if (!value) return;
+
+        localStorage.setItem('journal_' + today, value);
+        document.getElementById('entry').value = '';
+        loadEntries();
+
+        const msg = document.getElementById('saved-msg');
+        msg.style.display = 'block';
+        setTimeout(() => msg.style.display = 'none', 2000);
+    }
+
+    function loadEntries() {
+        const entriesDiv = document.getElementById('entries');
+        entriesDiv.innerHTML = '';
+        const keys = Object.keys(localStorage)
+            .filter(k => k.startsWith('journal_'))
+            .sort()
+            .reverse();
+
+        keys.forEach(k => {
+            const div = document.createElement('div');
+            div.className = 'entry';
+            div.innerHTML = `<strong>${k.replace('journal_', '')}</strong>${localStorage.getItem(k)}`;
+            entriesDiv.appendChild(div);
+        });
+    }
+
+    function toggleTheme() {
+        document.body.classList.toggle('dark');
+        localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    }
+
+    window.onload = () => {
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark');
+        }
+        loadEntries();
+
+        window.addEventListener('scroll', () => {
+            document.querySelector('.back-to-top').style.display =
+                window.scrollY > 300 ? 'block' : 'none';
+        });
+    };
+</script>
+
+</body>
+</html>
